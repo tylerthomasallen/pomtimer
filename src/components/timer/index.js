@@ -61,7 +61,7 @@ class Timer extends Component {
     render() {
         const { displayedTime } = this.state;
         return(
-            <div>
+            <div className="upper-container">
                 <div className="buttons-container">
                     {TIMER_BUTTONS_ARR.map((button, i) => {
                         return <Button key={i} title={button.title} time={button.time} changeTime={this.changeTime}/>

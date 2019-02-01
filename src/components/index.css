@@ -1,0 +1,5 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    font-family: Trebuchet MS, Helvetica, sans-serif;
+}
