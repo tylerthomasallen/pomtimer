@@ -36,23 +36,19 @@ class Timer extends Component {
         await this.setState({displayedTime});
     }
 
-    tick() {
-        const tick = setInterval(async () => {
-            if (!this.state.ticking || this.state.time <= 0) {
-                clearInterval(tick);
-            }
-            let { time } = this.state;
-            time -= 1;
-            await this.setState({ time });
-            this.updateDisplayedTime();
-        }, 1000);
-
-    }
-
     async startTime() {
-        if (!this.state.ticking && this.state.time > 0) {
-            await this.setState({ticking: true})
-            this.tick();
+        if (!this.state.ticking) {
+            this.setState({ticking: true})
+            const tick = setInterval(() => {
+                if (this.state.ticking && this.state.time >= 1) {
+                    let { time } = this.state;
+                    time -= 1;
+                    this.setState({ time });
+                    this.updateDisplayedTime();
+                } else {
+                    clearInterval(tick);
+                }
+            }, 1000);
         }
     }
 
@@ -63,10 +59,9 @@ class Timer extends Component {
 
 
     render() {
-        const { displayedTime, time } = this.state;
+        const { displayedTime } = this.state;
         return(
             <div>
-                Timers!
                 <div className="buttons-container">
                     {TIMER_BUTTONS_ARR.map((button, i) => {
                         return <Button key={i} title={button.title} time={button.time} changeTime={this.changeTime}/>
