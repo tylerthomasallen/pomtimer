@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ToDoItem from './todoItem';
 import './todos.css';
 
 class ToDos extends Component {
@@ -24,7 +25,7 @@ class ToDos extends Component {
     }
 
     render() {
-        const { input, todos } = this.state;
+        const { input, todos, checkedTodo } = this.state;
         return(
             <div className="todos-container">
                 <h1>TO-DO LIST</h1>
@@ -34,9 +35,11 @@ class ToDos extends Component {
                     <input type="submit" value="Add" className="submit"/>
                 </form>
 
-                {todos.map((todo, i) => {
-                    return <span key={i}>{todo}</span>
-                })}
+                <div className="todo-items">
+                    {todos.map((todo, i) => {
+                        return <ToDoItem todo={todo} key={i} />
+                    })}
+                </div>
 
             </div>
         )
