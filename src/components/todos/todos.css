@@ -154,3 +154,15 @@
     color: grey;
     text-decoration-line: line-through;
 }
+
+.todo-item-parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete {
+    color: navy;
+    cursor: pointer;
+    font-size: 24px;
+}
