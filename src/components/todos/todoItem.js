@@ -19,14 +19,18 @@ class ToDoItem extends Component {
 
 
     render() {
-        const { todo } = this.props;
+        const { todo, deleteTodo } = this.props;
         const { checkedTodo } = this.state;
         return(
-            <label className={`todo-item ${checkedTodo}`}>
-                <input type="checkbox" onChange={this.addChecked} />
-                <span className="checkmark"></span>
-                {todo}
-            </label>
+            <div>
+                <label className={`todo-item ${checkedTodo}`}>
+                    <input type="checkbox" onChange={this.addChecked} />
+                    <span className="checkmark"></span>
+                    {todo}
+                </label>
+                <span className="delete" onClick={() => deleteTodo(todo)}>Delete</span>
+
+            </div>
         )
     }
 }

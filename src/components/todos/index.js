@@ -24,6 +24,15 @@ class ToDos extends Component {
         this.setState({todos, input});
     }
 
+    deleteTodo = (todo) => {
+        let { todos } = this.state;
+        let idx = todos.indexOf(todo)
+        if (idx > -1 ) {
+            todos.splice(idx, 1);
+        }
+        this.setState({todos});
+    }
+
     render() {
         const { input, todos, checkedTodo } = this.state;
         return(
@@ -37,7 +46,7 @@ class ToDos extends Component {
 
                 <div className="todo-items">
                     {todos.map((todo, i) => {
-                        return <ToDoItem todo={todo} key={i} />
+                        return <ToDoItem todo={todo} key={i} deleteTodo={this.deleteTodo}/>
                     })}
                 </div>
 
