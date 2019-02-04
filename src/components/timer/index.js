@@ -70,6 +70,7 @@ class Timer extends Component {
         const { displayedTime, timeType } = this.state;
         return(
             <div className="upper-container">
+                {/* <span className="title">Tiger Timer</span> */}
                 <div className="buttons-container">
                     {TIMER_BUTTONS_ARR.map((button, i) => {
                         return <Button key={i} title={button.title} time={button.time} changeTime={this.changeTime}/>
