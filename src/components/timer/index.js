@@ -10,7 +10,8 @@ class Timer extends Component {
         this.state = {
             displayedTime: "00:00",
             time: 0,
-            ticking: false
+            ticking: false,
+            timeType: 0
         }
 
         this.changeTime = this.changeTime.bind(this);
@@ -21,6 +22,7 @@ class Timer extends Component {
 
     async changeTime(time) {
         await this.setState({time});
+        await this.setState({timeType: time})
         this.updateDisplayedTime();
     }
 
@@ -31,6 +33,9 @@ class Timer extends Component {
 
         if (seconds < 10) {
             seconds = `0${seconds}`
+        }
+        if (minutes === 0) {
+            minutes = "00"
         }
         const displayedTime = `${minutes}:${seconds}`;
         await this.setState({displayedTime});
@@ -59,7 +64,7 @@ class Timer extends Component {
 
 
     render() {
-        const { displayedTime } = this.state;
+        const { displayedTime, timeType } = this.state;
         return(
             <div className="upper-container">
                 <div className="buttons-container">
@@ -67,7 +72,7 @@ class Timer extends Component {
                         return <Button key={i} title={button.title} time={button.time} changeTime={this.changeTime}/>
                     })}
                 </div>
-                <Clock displayedTime={displayedTime} play={this.startTime} pause={this.stopTime}/>
+                <Clock displayedTime={displayedTime} play={this.startTime} pause={this.stopTime} timeType={timeType}/>
             </div>
         )
     }
