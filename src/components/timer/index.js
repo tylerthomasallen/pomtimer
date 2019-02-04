@@ -23,6 +23,7 @@ class Timer extends Component {
     async changeTime(time) {
         await this.setState({time});
         await this.setState({timeType: time})
+        await this.setState({ticking: false})
         this.updateDisplayedTime();
     }
 
@@ -43,15 +44,17 @@ class Timer extends Component {
 
     async startTime() {
         if (!this.state.ticking) {
-            this.setState({ticking: true})
-            const tick = setInterval(() => {
+            await this.setState({ticking: true})
+            debugger;
+            const tick = setInterval( async () => {
                 if (this.state.ticking && this.state.time >= 1) {
                     let { time } = this.state;
                     time -= 1;
-                    this.setState({ time });
-                    this.updateDisplayedTime();
+                    await this.setState({ time });
+                    await this.updateDisplayedTime();
                 } else {
                     clearInterval(tick);
+                    debugger;
                 }
             }, 1000);
         }
