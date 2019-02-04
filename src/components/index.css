@@ -2,4 +2,11 @@
     display: flex;
     justify-content: space-evenly;
     font-family: Trebuchet MS, Helvetica, sans-serif;
+    min-height: 600px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    text-decoration: underline;
+    text-align: center;
 }
