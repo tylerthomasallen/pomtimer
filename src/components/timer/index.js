@@ -3,6 +3,8 @@ import { TIMER_BUTTONS_ARR } from '../../constants';
 import Button from './button';
 import Clock from './clock';
 import './timer.css';
+import Song from '../sounds';
+
 
 class Timer extends Component {
     constructor(props) {
@@ -11,7 +13,8 @@ class Timer extends Component {
             displayedTime: "00:00",
             time: 0,
             ticking: false,
-            timeType: 0
+            timeType: 0,
+            play: false
         }
 
         this.changeTime = this.changeTime.bind(this);
@@ -24,6 +27,7 @@ class Timer extends Component {
         await this.setState({time});
         await this.setState({timeType: time})
         await this.setState({ticking: false})
+        await this.setState({play: false})
         this.updateDisplayedTime();
     }
 
@@ -40,12 +44,15 @@ class Timer extends Component {
         }
         const displayedTime = `${minutes}:${seconds}`;
         await this.setState({displayedTime});
+
+        if (time === 0) {
+          this.setState({play: true})
+        }
     }
 
     async startTime() {
         if (!this.state.ticking) {
             await this.setState({ticking: true})
-            debugger;
             const tick = setInterval( async () => {
                 if (this.state.ticking && this.state.time >= 1) {
                     let { time } = this.state;
@@ -54,7 +61,6 @@ class Timer extends Component {
                     await this.updateDisplayedTime();
                 } else {
                     clearInterval(tick);
-                    debugger;
                 }
             }, 1000);
         }
@@ -62,21 +68,20 @@ class Timer extends Component {
 
     async stopTime() {
         await this.setState({ticking: false})
+        await this.setState({play: false})
     }
 
-
-
     render() {
-        const { displayedTime, timeType } = this.state;
+        const { displayedTime, timeType, play } = this.state;
         return(
             <div className="upper-container">
-                {/* <span className="title">Tiger Timer</span> */}
-                <div className="buttons-container">
-                    {TIMER_BUTTONS_ARR.map((button, i) => {
-                        return <Button key={i} title={button.title} time={button.time} changeTime={this.changeTime}/>
-                    })}
-                </div>
-                <Clock displayedTime={displayedTime} play={this.startTime} pause={this.stopTime} timeType={timeType}/>
+              <Song play={play}/>
+              <div className="buttons-container">
+                  {TIMER_BUTTONS_ARR.map((button, i) => {
+                      return <Button key={i} title={button.title} time={button.time} changeTime={this.changeTime}/>
+                  })}
+              </div>
+              <Clock displayedTime={displayedTime} play={this.startTime} pause={this.stopTime} timeType={timeType}/>
             </div>
         )
     }
