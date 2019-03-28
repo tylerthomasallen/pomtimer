@@ -37,6 +37,18 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Pomodoro Timer</title>
+
+    <script>
+      if (window.location.protocol == "http:") {
+        console.log("You are not connected with a secure connection.")
+        console.log("Reloading the page to a Secure Connection...")
+        window.location = document.URL.replace("http://", "https://");
+      }
+  
+      if (window.location.protocol == "https:") {
+        console.log("You are connected with a secure connection.")
+      }
+  </script>
   </head>
   <body>
     <div id="root"></div>
